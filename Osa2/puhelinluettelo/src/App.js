@@ -3,6 +3,29 @@ import axios from 'axios'
 import Person from './components/Person'
 import Add from './components/Add'
 import ShowNumbers from './components/ShowNumbers'
+import nameService from './services/persons'
+
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+  return (
+  <div className="notification">
+    {message}
+  </div>
+  )
+}
+
+const Error = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+  return (
+  <div className="error">
+    {message}
+  </div>
+  )
+}
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -10,10 +33,12 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [filterName, setNewFilter] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    nameService
+      .getAll()
       .then(response => {
         setPersons(response.data)
       })
@@ -36,6 +61,19 @@ const App = () => {
     setShowAll(false)
   }
 
+  const handleRemove = (props) => {
+    if(window.confirm(`Delete ${props.name}?`)) {
+      nameService
+        .update(props.id)
+        setNotificationMessage(
+          `Deleted ${props.name} `
+        )
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
+    }
+  }
+
   const addName = (event) => {
     event.preventDefault()
     const nameObject = {
@@ -44,19 +82,60 @@ const App = () => {
     }
     for(let i=0; i<persons.length; i++){
       if (persons[i].name === newName){
-        window.alert(`${newName} is already added to phonebook`)
+        if( window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){ 
+          const changeNumber = { ...persons[i], number : newNumber}
+          nameService
+            .change(persons[i].id, changeNumber)
+            .catch(error => {
+              setNotificationMessage(null)
+              setErrorMessage(
+                `Information of ${newName} has already been removed from server`
+              )
+              setTimeout(() => {
+                setErrorMessage(null)
+              }, 4000)
+            })
+            setNotificationMessage(
+              `Changed ${newName}'s number`
+            )
+            setTimeout(() => {
+              setNotificationMessage(null)
+            }, 4000)
+          setNewName('')
+          setNewNumber('')}
+          
         return
       }
     }
-    setPersons(persons.concat(nameObject))
-    setNewName('')
-    setNewNumber('')
-    console.log('name added', event.target)
+
+    nameService
+      .create(nameObject)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+      })
+    
+      setNotificationMessage(
+        `Added ${newName} `
+      )
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 4000)
+
+      setNewName('')
+      setNewNumber('')
   }
+
+  nameService
+  .getAll()
+  .then(response => {
+    setPersons(response.data)
+  })
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notificationMessage} />
+      <Error message={errorMessage} />
       filter shown with
           <input 
             value={filterName}
@@ -83,7 +162,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <ShowNumbers namesToShow={namesToShow}/>
+      <ShowNumbers namesToShow={namesToShow} handleRemove={handleRemove}/>
     </div>
   )
 

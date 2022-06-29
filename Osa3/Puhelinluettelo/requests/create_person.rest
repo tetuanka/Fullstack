@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+POST https://shrouded-sea-58094.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
-    "name": "Arto Paarmasiaaaa", 
+    "name": "Anna Puu", 
     "number": "040 128s748"
 }

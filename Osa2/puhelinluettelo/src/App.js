@@ -72,6 +72,11 @@ const App = () => {
           setNotificationMessage(null)
         }, 5000)
     }
+    nameService
+    .getAll()
+    .then(response => {
+    setPersons(response.data)
+    })
   }
 
   const addName = (event) => {
@@ -125,11 +130,11 @@ const App = () => {
       setNewNumber('')
   }
 
-  nameService
-  .getAll()
-  .then(response => {
-    setPersons(response.data)
-  })
+  //nameService
+  //.getAll()
+  //.then(response => {
+  //  setPersons(response.data)
+  //})
 
   return (
     <div>

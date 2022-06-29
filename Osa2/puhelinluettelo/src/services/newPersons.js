@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/persons'
+const baseUrl = 'https://shrouded-sea-58094.herokuapp.com/api/persons'
 
 const create = newObject => {
     return axios.post(baseUrl, newObject)

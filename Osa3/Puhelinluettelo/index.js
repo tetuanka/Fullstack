@@ -5,6 +5,7 @@ const cors = require('cors')
 
 app.use(express.json())
 app.use(cors())
+app.use(express.static('build'))
 
 morgan.token('post', function (req, res) { return JSON.stringify(req.body) 
 })
@@ -53,16 +54,14 @@ let persons = [
     }
   ]
 
-const len = persons.length
-let info = 'Phonebook info has for people'
-
 app.get('/api/persons', (request, response) => {
     response.json(persons)
   })
 
 app.get('/info', (request, response) => {
+    let len = persons.length
     let currentDate = new Date();
-    response.send('<p>Phonebook info has for ' + len  + ' people</p> <p>' + currentDate + '</p>')
+    response.send('<p>Phonebook info has for ' + 'lenni'  + ' people</p> <p>' + currentDate + '</p>')
   })
 
 app.get('/api/persons/:id', (request, response) => {

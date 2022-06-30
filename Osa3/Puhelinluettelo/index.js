@@ -61,7 +61,7 @@ app.get('/api/persons', (request, response) => {
 app.get('/info', (request, response) => {
     let len = persons.length
     let currentDate = new Date();
-    response.send('<p>Phonebook info has for ' + 'lenni'  + ' people</p> <p>' + currentDate + '</p>')
+    response.send('<p>Phonebook info has for ' + len  + ' people</p> <p>' + currentDate + '</p>')
   })
 
 app.get('/api/persons/:id', (request, response) => {

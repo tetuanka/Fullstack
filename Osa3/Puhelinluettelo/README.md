@@ -1,1 +1,1 @@
-https://shrouded-sea-58094.herokuapp.com/api/persons
+https://shrouded-sea-58094.herokuapp.com

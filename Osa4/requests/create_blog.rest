@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Hullua puuhaa",
+    "author": "-",
+    "url": "https://hulluapuuhaa.blogspot.com/2022/07/lisaa-kesavaatetta.html",
+    "likes": 25
+}

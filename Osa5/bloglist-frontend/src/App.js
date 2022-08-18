@@ -7,7 +7,6 @@ import Error from './components/Error'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
-
 const App = () => {
   const [formVisible, setFormVisible] = useState(false)
   const [blogs, setBlogs] = useState([])

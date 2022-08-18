@@ -111,11 +111,7 @@ describe('When logged in',function() {
       cy.get('.like:last').click()
       cy.reload()
       cy.get('.blog').eq(0).should('contain', 'test blog3')
-
     })
-
 })
-
 })
-
 })

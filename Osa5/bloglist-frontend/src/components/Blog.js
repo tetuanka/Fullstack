@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Table, Button, Alert } from 'react-bootstrap'
 
 const Blog = ({ blog, addLike, remove }) => {
   const blogStyle = {
@@ -19,15 +20,15 @@ const Blog = ({ blog, addLike, remove }) => {
       <div style={hideWhenVisible}>
         <div style={blogStyle}>
           {blog.title}
-          <button className="view" onClick={() => setBlogVisible(true)}>view</button>
+          <Button className="view" onClick={() => setBlogVisible(true)}>view</Button>
         </div> </div>
       <div style={showWhenVisible}>
         <div style={blogStyle} className="blog">
-          <div>{blog.title} <button onClick={() => setBlogVisible(false)}>hide</button></div>
+          <div>{blog.title} <Button onClick={() => setBlogVisible(false)}>hide</Button></div>
           <div>{blog.url}</div>
-          <div id="likes">likes {blog.likes} <button className="like" onClick={() => addLike(blog) }>like</button></div>
+          <div id="likes">likes {blog.likes} <Button className="like" onClick={() => addLike(blog) }>like</Button></div>
           <div>{blog.author}</div>
-          <div><button onClick={() => remove(blog) }>remove</button></div>
+          <div><Button onClick={() => remove(blog) }>remove</Button></div>
         </div>
       </div>
     </div>

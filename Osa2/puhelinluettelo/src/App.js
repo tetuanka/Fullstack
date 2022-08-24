@@ -139,11 +139,6 @@ const App = () => {
       setNewNumber('')
   }
 
-  //nameService
-  //.getAll()
-  //.then(response => {
-  //  setPersons(response.data)
-  //})
 
   return (
     <div>
